@@ -38,7 +38,7 @@ It has two parts:
 
 #### 2. Add the `curl_to_email` command to your shell.
 
-1. Issue the following command o create a file named `define_curl_to_email.sh` in your home folder
+1. Issue the following command to create a file named `define_curl_to_email.sh` in your home folder
     ```shell
     touch ~/define_curl_to_email.sh
     ```
@@ -52,15 +52,20 @@ It has two parts:
     # (Optional) Make a backup copy of ~/.zshrc before modifying it.
     cp ~/.zshrc ~/.zshrc.bak
 
-    # Append the "source ..." command, plus some metadata, to the ~/.zshrc file.
-    echo '# >>> http-to-email initialize >>>' >> ~/.zshrc
-    echo 'source ~/define_curl_to_email.sh'   >> ~/.zshrc
-    echo '# <<< http-to-email initialize <<<' >> ~/.zshrc
+    # Append the "source ..." command, surrounded by some metadata comments, to the ~/.zshrc file.
+    echo '# <http-to-email>'  >> ~/.zshrc
+    echo 'source ~/define_curl_to_email.sh' >> ~/.zshrc
+    echo '# </http-to-email>' >> ~/.zshrc
     ```
 1. Re-initialize your current shell
     ```shell
     source ~/.zshrc
     ```
+1. Issue the `curl_to_email` command and check your email
+    ```shell
+    curl_to_email "This is a test"
+    ```
+    > If the command and the web app are both set up, you will receive an email containing the message, "This is a test", within a few seconds.
 
 ### Usage
 
