@@ -4,8 +4,10 @@
 
 It has two parts:
 
-1. A web app (implemented as a Google Apps Script project) that receives an HTTP request and sends an email
-2. A shell function you can use to send an HTTP request to that web app
+1. A web app that sends an email when it receives an HTTP request (this part is implemented as a [Google Apps Script](https://www.google.com/script/start/))
+2. A shell command that send an HTTP request to that web app (this part is implemented as a [shell function](https://github.com/rothgar/mastering-zsh/blob/master/docs/helpers/functions.md))
+
+I use it to have my computer send me an email when a long-running process finishes; for example, a database dump or Python script.
 
 ## One-time setup
 
