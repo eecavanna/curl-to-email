@@ -1,6 +1,6 @@
-# http-to-email
+# curl-to-email
 
-`http-to-email` is a tool you can use to send yourself an email from the command-line.
+`curl-to-email` is a tool you can use to send yourself an email from the command-line.
 
 It has two parts:
 
@@ -46,8 +46,8 @@ I use it to have my computer send me an email when a long-running process finish
     ```
 1. Copy the contents of the `client/define_curl_to_email.sh` file in this repository, and paste it into that newly-created `define_curl_to_email.sh` file
 1. Update the following values in the `define_curl_to_email.sh` file:
-    - `HTTP_TO_EMAIL_URI` - update this to contain "Web app" URL shown on Google Apps Script, under "Deploy" > "Manage Deployments" > (the active deployment)
-    - `HTTP_TO_EMAIL_SHARED_SECRET` - Update this to contain the `SHARED_SECRET` value you put in the `Config.gs` file on Google Apps Script
+    - `CURL_TO_EMAIL_URI` - update this to contain "Web app" URL shown on Google Apps Script, under "Deploy" > "Manage Deployments" > (the active deployment)
+    - `CURL_TO_EMAIL_SHARED_SECRET` - Update this to contain the `SHARED_SECRET` value you put in the `Config.gs` file on Google Apps Script
 1. Save the file
 1. Update your shell initialization script to run the code in that file during the shell initialization process
     ```shell
@@ -55,9 +55,9 @@ I use it to have my computer send me an email when a long-running process finish
     cp ~/.zshrc ~/.zshrc.bak
 
     # Append the "source ..." command, surrounded by some metadata comments, to the ~/.zshrc file.
-    echo '# <http-to-email>'  >> ~/.zshrc
+    echo '# <curl-to-email>'  >> ~/.zshrc
     echo 'source ~/define_curl_to_email.sh' >> ~/.zshrc
-    echo '# </http-to-email>' >> ~/.zshrc
+    echo '# </curl-to-email>' >> ~/.zshrc
     ```
 1. Re-initialize your current shell
     ```shell

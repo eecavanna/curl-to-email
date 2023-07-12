@@ -5,5 +5,5 @@ const config = {
 
   // A string you want to precede the subject (subject line) of the emails
   // sent by this script.
-  EMAIL_SUBJECT_PREFIX: "[http-to-email]: ",
+  EMAIL_SUBJECT_PREFIX: "[curl-to-email]: ",
 };
