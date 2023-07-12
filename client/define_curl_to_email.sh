@@ -13,7 +13,8 @@ curl_to_email() {
   HTTP_TO_EMAIL_SHARED_SECRET="apple-banana-carrot-daikon-egg"
 
   # Use curl to submit an HTTP POST request to the `http-to-email` web service.
-  curl -X POST "${HTTP_TO_EMAIL_URI}" \
+  # Note: curl will infer the "POST" method from the presence of the `-d` option.
+  curl -L "${HTTP_TO_EMAIL_URI}" \
        -H "Accept: application/json" \
        -H "Content-Type: application/json" \
        -d '{
