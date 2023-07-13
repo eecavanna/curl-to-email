@@ -13,7 +13,6 @@ I use it to have my computer send me an email when a long-running process finish
 
 ### Prerequisites
 
-- `git` is installed (i.e. `git --version` shows version info)
 - `curl` is installed (i.e. `curl --version` shows version info)
 - `zsh` is the current shell (i.e. [`ps -p $$`](https://askubuntu.com/a/590903) shows something that contains `zsh` and not `bash`)
 
@@ -56,16 +55,21 @@ I use it to have my computer send me an email when a long-running process finish
     - `CURL_TO_EMAIL_SHARED_SECRET` - Update this to contain the `SHARED_SECRET` value you put in the `Config.gs` file on Google Apps Script
 1. Save the file
 1. Update your shell initialization script (e.g. `~/.zshrc`) to run the code in that file during the shell initialization process
-    ```shell
-    # (Optional) Make a backup copy of ~/.zshrc before modifying it.
-    cp ~/.zshrc ~/.zshrc.bak
-
-    # Append the "source ..." command, surrounded by some metadata comments, to the ~/.zshrc file.
-    echo ''
-    echo '# <curl-to-email>'  >> ~/.zshrc
-    echo 'source ~/define_curl_to_email.sh' >> ~/.zshrc
-    echo '# </curl-to-email>' >> ~/.zshrc
-    ```
+    1. (Optional) Make a backup copy of `~/.zshrc` before modifying it
+        ```shell
+        cp ~/.zshrc ~/.zshrc.bak
+        ```
+    1. Issue the following commands, which will append four lines to the bottom of your `~/.zshrc` file
+       ```shell
+        echo ''                                 >> ~/.zshrc
+        echo '# <curl-to-email>'                >> ~/.zshrc
+        echo 'source ~/define_curl_to_email.sh' >> ~/.zshrc
+        echo '# </curl-to-email>'               >> ~/.zshrc
+        ```
+    1. (Optional) Verify the lines were appended
+        ```shell
+        tail -4 ~/.zshrc
+        ```
 1. Re-initialize your current shell
     ```shell
     source ~/.zshrc
@@ -75,6 +79,11 @@ I use it to have my computer send me an email when a long-running process finish
     curl_to_email "This is a test"
     ```
     > If the command and the web app are both set up, you will receive an email containing the message, "This is a test", within a few seconds.
+
+#### 3. (Optional) Clean up
+
+1. Close the Google Apps Script editor (web page)
+1. Close the terminal window (exit the shell)
 
 ### Usage
 
