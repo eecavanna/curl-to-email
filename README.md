@@ -4,12 +4,12 @@
 
 It has two parts:
 
-1. A web app that sends an email when it receives an HTTP request (this part is implemented as a [Google Apps Script](https://www.google.com/script/start/))
-2. A shell command that send an HTTP request to that web app (this part is implemented as a [shell function](https://github.com/rothgar/mastering-zsh/blob/master/docs/helpers/functions.md))
+1. A web service that sends an email when it receives an HTTP request (this part is implemented as a [Google Apps Script](https://www.google.com/script/start/))
+2. A shell command that send an HTTP request to that web service (this part is implemented as a [shell function](https://github.com/rothgar/mastering-zsh/blob/master/docs/helpers/functions.md))
 
 I use it to have my computer send me an email when a long-running process finishes; for example, a database dump or Python script.
 
-## One-time setup
+## Installation
 
 ### Prerequisites
 
@@ -18,15 +18,15 @@ I use it to have my computer send me an email when a long-running process finish
 
 ### Procedure
 
-#### 1. Deploy the `GoogleAppsScript` web app to Google Apps Script.
+#### 1. Deploy the web service to Google Apps Script.
 
 1. Visit https://script.google.com/home/projects/create to create a new Google Apps Script project
 1. In the Google Apps Script editor that appears, rename the project to "`curl-to-email`" (by clicking on "Untitled project" at the top of the page)
 1. Delete the contents of the `Code.gs` file
-1. Copy the contents of the `GoogleAppsScript/Code.gs` file in this repository, and paste it into that empty `Code.gs` file in the Google Apps Script editor
+1. Copy the contents of the `web-service/Code.gs` file in this repository, and paste it into that empty `Code.gs` file in the Google Apps Script editor
 1. In the Google Apps Script editor, add a new file of type "Script" and enter its name as "`Config`" (Google Apps Script will automatically append a `.gs` to its name)
 1. Delete the contents of the newly-created `Config.gs` file
-1. Copy the contents of the `GoogleAppsScript/Config.gs` file in this repository, and paste it into that empty `Config.gs` file in the Google Apps Script editor
+1. Copy the contents of the `web-service/Config.gs` file in this repository, and paste it into that empty `Config.gs` file in the Google Apps Script editor
 1. Visit https://bitwarden.com/password-generator/ and generate a password
 1. In `Config.gs`, update the `SHARED_SECRET` variable so it contains the password you generated
 1. In the Google Apps Script editor, click the "Deploy" > "New deployment"
@@ -49,7 +49,7 @@ I use it to have my computer send me an email when a long-running process finish
     ```shell
     touch ~/define_curl_to_email.sh
     ```
-1. Copy the contents of the `client/define_curl_to_email.sh` file in this repository, and—using a text editor—paste it into that newly-created `define_curl_to_email.sh` file
+1. Copy the contents of the `shell-command/define_curl_to_email.sh` file in this repository, and—using a text editor—paste it into that newly-created `define_curl_to_email.sh` file
 1. Update the following values in the `define_curl_to_email.sh` file:
     - `CURL_TO_EMAIL_WEB_APP_URI` - Update this to contain "Web app" URL shown on Google Apps Script, under "Deploy" > "Manage Deployments" > (the active deployment)
     - `CURL_TO_EMAIL_SHARED_SECRET` - Update this to contain the `SHARED_SECRET` value you put in the `Config.gs` file on Google Apps Script
@@ -78,7 +78,7 @@ I use it to have my computer send me an email when a long-running process finish
     ```shell
     curl_to_email "This is a test"
     ```
-    > If the command and the web app are both set up, you will receive an email containing the message, "This is a test", within a few seconds.
+    > Within a few seconds, you will receive an email containing the message, "This is a test".
 
 #### 3. (Optional) Clean up
 
@@ -86,5 +86,9 @@ I use it to have my computer send me an email when a long-running process finish
 1. Close the terminal window (exit the shell)
 
 ### Usage
+
+TODO
+
+### Uninstallation
 
 TODO
