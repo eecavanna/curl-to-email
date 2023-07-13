@@ -1,5 +1,5 @@
 /**
- * This script presents an HTTP endpoint people can use to send an email.
+ * This web service presents an HTTP endpoint people can use to send an email.
  * 
  * It was designed to send brief notification emails via curl. For example:
  * 
@@ -9,7 +9,7 @@
  */
 
 /**
- * Handles incoming POST requests.
+ * Handles incoming POST requests (to any path).
  * 
  * Reference: https://developers.google.com/apps-script/guides/web#request_parameters
  */
@@ -21,7 +21,7 @@ function doPost(event) {
   if (data.secret !== config.SHARED_SECRET) {
     throw Error("Shared secret does not match.");
   } else if (typeof data.message !== "string") {
-    throw Error("message must be a string.");
+    throw Error("Message must be a string.");
   }
 
   // Build the email.

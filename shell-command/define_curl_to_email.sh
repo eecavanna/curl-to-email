@@ -14,8 +14,8 @@ curl_to_email() {
   message=$1
 
   # Set user-specific values.
-  CURL_TO_EMAIL_WEB_APP_URI='https://script.google.com/macros/s/AKfycbyPEPmM6Isr-h_Qmv94lvn0wISXP2t82lhSOmfZ9ues0ceQr_lsx3X9okyR7foGbtZf/exec'
-  CURL_TO_EMAIL_SHARED_SECRET='apple-banana-carrot-daikon-egg'
+  CURL_TO_EMAIL_WEB_APP_URI='__REPLACE_ME__'
+  CURL_TO_EMAIL_SHARED_SECRET='__REPLACE_ME__'
 
   # Submit an HTTP POST request to the `curl-to-email` web service.
   # Note: Because the "-d" option is present, curl will use the "POST" method

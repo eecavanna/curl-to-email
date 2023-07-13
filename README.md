@@ -82,7 +82,7 @@ I use it to have my computer send me an email when a long-running process finish
 
 #### 3. (Optional) Clean up
 
-1. Close the Google Apps Script editor (web page)
+1. Close the Google Apps Script editor (close the web page)
 1. Close the terminal window (exit the shell)
 
 ### Usage
