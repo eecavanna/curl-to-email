@@ -1,0 +1,4 @@
+
+# <curl-to-email>
+source ~/curl-to-email/shell-command/define_curl_to_email.sh
+# </curl-to-email>

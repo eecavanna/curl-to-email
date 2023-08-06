@@ -2,34 +2,56 @@
 
 `curl-to-email` is a tool you can use to send yourself an email from the command-line.
 
-It has two parts:
+The tool is made of two parts:
 
-1. A web service that sends an email when it receives an HTTP request (this part is implemented as a [Google Apps Script](https://www.google.com/script/start/))
-2. A shell command that send an HTTP request to that web service (this part is implemented as a [shell function](https://github.com/rothgar/mastering-zsh/blob/master/docs/helpers/functions.md))
+1. A shell command that sends an HTTP request to a web server
+2. A web server that sends an email when it receives that HTTP request
 
-I use it to have my computer send me an email when a long-running process finishes; for example, a database dump or Python script.
+```mermaid
+flowchart LR
+  client["Shell command"]
+  server["Web server"]
+  inbox["Your inbox"]
+
+  client -- "HTTP request" --> server -. "Email" .-> inbox
+
+  style inbox stroke-dasharray: 5
+```
+
+Here is how those two parts are implemented in this repo:
+
+- The web server is implemented as a [Google Apps Script](https://www.google.com/script/start/) script
+- The shell command is implemented as a [shell function](https://github.com/rothgar/mastering-zsh/blob/master/docs/helpers/functions.md) that uses `curl`
+
+I use this tool to have my computer send me an email when it finishes doing something specific; for example, dumping a large database or running a long Python script.
 
 ## Installation
 
+Here's how you can install the tool:
+
 ### Prerequisites
 
-- `curl` is installed (i.e. `curl --version` shows version info)
-- `zsh` is the current shell (i.e. [`ps -p $$`](https://askubuntu.com/a/590903) shows something that contains `zsh` and not `bash`)
+- The current shell is `zsh`
+    - To check: Run [`ps -p $$`](https://askubuntu.com/a/590903) and confirm the output contains "`zsh`"
+- `git` is installed
+    - To check: Run `git --version` and confirm the output contains a version number
+- `curl` is installed
+    - To check: Run `curl --version` and confirm the output contains a version number
 
 ### Procedure
 
 #### 1. Deploy the web service to Google Apps Script.
 
 1. Visit https://script.google.com/home/projects/create to create a new Google Apps Script project
-1. In the Google Apps Script editor that appears, rename the project to "`curl-to-email`" (by clicking on "Untitled project" at the top of the page)
-1. Delete the contents of the `Code.gs` file
-1. Copy the contents of the `web-service/Code.gs` file in this repository, and paste it into that empty `Code.gs` file in the Google Apps Script editor
-1. In the Google Apps Script editor, add a new file of type "Script" and enter its name as "`Config`" (Google Apps Script will automatically append a `.gs` to its name)
-1. Delete the contents of the newly-created `Config.gs` file
-1. Copy the contents of the `web-service/Config.gs` file in this repository, and paste it into that empty `Config.gs` file in the Google Apps Script editor
-1. Visit https://bitwarden.com/password-generator/ and generate a password
-1. In `Config.gs`, update the `SHARED_SECRET` variable so it contains the password you generated
-1. In the Google Apps Script editor, click the "Deploy" > "New deployment"
+1. In the Google Apps Script editor that appears, rename the project to "`curl-to-email`"
+    - You can do that by clicking on "Untitled project" at the top of the page
+1. In the Google Apps Script editor, add a new file of type "Script" and enter its name as "`Config`"
+    - Google Apps Script will automatically append a `.gs` to its name
+1. Replace the contents of the `Code.gs` file with the contents of the `web-service/Code.gs` file in this repository
+1. Replace the contents of the `Config.gs` file with the contents of the `web-service/Config.gs` file in this repository
+1. In the `Config.gs` file, update the `SHARED_SECRET` variable so it contains a password you generate
+    - I recommend generating the password using https://bitwarden.com/password-generator/
+1. In the Google Apps Script editor, click "Deploy" > "New deployment"
 1. In the "Select type" section, click the gear icon and select "Web app"
 1. In the "Description" section, populate the fields like this:
     1. Description: `v1.0.0`
@@ -45,42 +67,37 @@ I use it to have my computer send me an email when a long-running process finish
 
 #### 2. Add the `curl_to_email` command to your shell.
 
-1. Issue the following command to create a file named `define_curl_to_email.sh` in your home folder
+1. Clone this repository into your home folder.
     ```shell
-    touch ~/define_curl_to_email.sh
+    cd ~
+    git clone https://github.com/eecavanna/curl-to-email.git
     ```
-1. Copy the contents of the `shell-command/define_curl_to_email.sh` file in this repository, and—using a text editor—paste it into that newly-created `define_curl_to_email.sh` file
-1. Update the following values in the `define_curl_to_email.sh` file:
-    - `CURL_TO_EMAIL_WEB_APP_URI` - Update this to contain "Web app" URL shown on Google Apps Script, under "Deploy" > "Manage Deployments" > (the active deployment)
-    - `CURL_TO_EMAIL_SHARED_SECRET` - Update this to contain the `SHARED_SECRET` value you put in the `Config.gs` file on Google Apps Script
-1. Save the file
-1. Update your shell initialization script (e.g. `~/.zshrc`) to run the code in that file during the shell initialization process
-    1. (Optional) Make a backup copy of `~/.zshrc` before modifying it
-        ```shell
-        cp ~/.zshrc ~/.zshrc.bak
-        ```
-    1. Issue the following commands, which will append four lines to the bottom of your `~/.zshrc` file
-       ```shell
-        echo ''                                 >> ~/.zshrc
-        echo '# <curl-to-email>'                >> ~/.zshrc
-        echo 'source ~/define_curl_to_email.sh' >> ~/.zshrc
-        echo '# </curl-to-email>'               >> ~/.zshrc
-        ```
-    1. (Optional) Verify the lines were appended
-        ```shell
-        tail -4 ~/.zshrc
-        ```
-1. Re-initialize your current shell
+    > You can clone it into a different folder, provided you edit `zshrc_snippet.txt` accordingly.
+1. Install the command into your shell.
+    ```shell
+    cp  ~/.zshrc ~/.zshrc.bak
+    cat ~/curl-to-email/shell-command/zshrc_snippet.txt >> ~/.zshrc
+    ```
+    > The first command (optional) backs up your `.zshrc` file. The second command (required) appends the contents of `zshrc_snippet.txt` to your `.zshrc` file.
+1. Edit two lines in the file, `define_curl_to_email.sh`.
+    ```shell
+    vi ~/curl-to-email/shell-command/define_curl_to_email.sh
+    ```
+    - Set `CURL_TO_EMAIL_WEB_APP_URI` to the "Web app" URL shown on Google Apps Script, under "Deploy" > "Manage Deployments" > (Active deployment).
+    - Set `CURL_TO_EMAIL_SHARED_SECRET` to the `SHARED_SECRET` value you put in `Config.gs` on Google Apps Script.
+    > These changes will make it so the `curl_to_email` command can talk to the web server.
+1. Re-initialize your current shell.
     ```shell
     source ~/.zshrc
     ```
-1. Issue the `curl_to_email` command and check your email
+    > That'll make it so your current shell has the `curl_to_email` command. Future shells will have it automatically.
+1. Issue the `curl_to_email` command and check your email.
     ```shell
     curl_to_email "This is a test"
     ```
     > Within a few seconds, you will receive an email containing the message, "This is a test".
 
-#### 3. (Optional) Clean up
+#### 3. (Optional) Clean up.
 
 1. Close the Google Apps Script editor (close the web page)
 1. Close the terminal window (exit the shell)
@@ -91,4 +108,7 @@ TODO
 
 ### Uninstallation
 
-TODO
+Here's how you can uninstall the tool:
+
+1. On Google Apps Script, delete the project.
+1. In your `~/.zshrc` file, remove the lines that match the contents of `shell-command/zshrc_snippet.txt`.

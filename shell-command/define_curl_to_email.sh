@@ -1,3 +1,5 @@
+#! /bin/zsh
+
 curl_to_email() {
   # If no arguments were passed in, display a help string and exit.
   if [ $# -eq 0 ]; then
