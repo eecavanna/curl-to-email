@@ -112,7 +112,7 @@ At this point, the entire tool—both the web service and the shell command—is
 1. Close the Google Apps Script editor (close the web page)
 1. Close the terminal window (exit the shell)
 
-### Usage
+## Usage
 
 Here are some usage examples:
 
@@ -144,10 +144,31 @@ Here are some usage examples:
   lsof -p 22222 +r 1 &> /dev/null ; curl_to_email "That process is done."
   ```
 
-### Uninstallation
+## Uninstallation
 
 Here's how you can uninstall the tool:
 
 1. On Google Apps Script, delete the project.
 1. In your `~/.zshrc` file, remove the lines that match the contents of `shell-command/zshrc_snippet.sh.txt`.
 1. (Optional) Delete the clone of this repository (which includes this `README.md` file—goodbye!).
+
+## Appendix
+
+#### Usage with Python
+
+Here's how you can use this tool from within a Python script.
+
+```py
+import requests
+
+
+CURL_TO_EMAIL_WEB_APP_URI = "..."
+CURL_TO_EMAIL_SHARED_SECRET = "..."
+
+payload = dict(secret=CURL_TO_EMAIL_SHARED_SECRET,
+               message="This is a message.")
+
+requests.post(CURL_TO_EMAIL_WEB_APP_URI, json=payload)
+```
+
+> This approach uses only the **web service** part of `curl-to-email`. It does not use the shell command part.
