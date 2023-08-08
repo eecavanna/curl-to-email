@@ -3,7 +3,7 @@
  * 
  * It was designed to send brief notification emails via curl. For example:
  * 
- * $ curl -X POST https://{url-of-this-script} \
+ * $ curl -L https://{url-of-this-script} \
  *     -H "Content-Type: application/json" \
  *     -d '{ "secret": "...", "message": "Program ran OK." }'
  */

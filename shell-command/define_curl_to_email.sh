@@ -23,7 +23,6 @@ curl_to_email() {
   # Note: Because the "-d" option is present, curl will use the "POST" method
   #       for the initial request ("initial", as in, before any redirects).
   curl -L "${CURL_TO_EMAIL_WEB_APP_URI}" \
-       -H 'Accept: application/json' \
        -H 'Content-Type: application/json' \
        -d '{
              "secret": "'${CURL_TO_EMAIL_SHARED_SECRET}'",
