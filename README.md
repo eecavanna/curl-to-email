@@ -114,7 +114,35 @@ At this point, the entire tool—both the web service and the shell command—is
 
 ### Usage
 
-TODO
+Here are some usage examples:
+
+- Send an email (immediately).
+  ```shell
+  curl_to_email "Hello world!"
+  ```
+- Run a program, and send an email when it stops running.
+  ```shell
+  # e.g. Run ping, then send an email when it stops running.
+  ping -c 10 www.example.com ; curl_to_email "Ping is done."
+
+  # e.g. Run a Python script, and send an email when it stops running.
+  python ./script.py --option 123 ; curl_to_email "Script is done."
+  ```
+- Send an email when an already-running program stops running.
+  ```shell
+  # Get the process ID of the program; e.g. "22222"
+  ps
+  
+  # When that process stops running, send an email.
+  #
+  # Explanation: `lsof -p 22222 +r` will repeatedly list information about the
+  #              process having the process ID "22222" until that process stops
+  #              running, and `1 &> /dev/null` will hide that information from
+  #              the terminal. Once that process stops running, the next
+  #              command (after the semicolon) will run, which sends the email.
+  #              
+  lsof -p 22222 +r 1 &> /dev/null ; curl_to_email "That process is done."
+  ```
 
 ### Uninstallation
 
