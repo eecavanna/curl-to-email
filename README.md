@@ -51,13 +51,13 @@ Here's how you can install the tool:
 1. Replace the contents of the `Config.gs` file with the contents of the `web-service/Config.gs` file in this repository
 1. In the `Config.gs` file, update the `SHARED_SECRET` variable so it contains a password you generate
     - I recommend generating the password using https://bitwarden.com/password-generator/
+1. Click the disk icon to save the project
 1. In the Google Apps Script editor, click "Deploy" > "New deployment"
 1. In the "Select type" section, click the gear icon and select "Web app"
 1. In the "Description" section, populate the fields like this:
     1. Description: `v1.0.0`
     1. Execute as: `Me (...)`
     1. Who has access: `Anyone` (you'll rely on the password you created earlier—instead of on Google—to restrict access)
-1. Click the disk icon to save the project
 1. Click the "Deploy" button
 1. Allow the Google Apps Script project to send email as you:
     1. Click the "Authorize access" button
