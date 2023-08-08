@@ -85,6 +85,12 @@ At this point, the web service is listening for HTTP requests.
     ```shell
     vi ~/curl-to-email/shell-command/define_curl_to_email.sh
     ```
+    The two lines are:
+    ```sh
+    CURL_TO_EMAIL_WEB_APP_URI='__REPLACE_ME__'
+    CURL_TO_EMAIL_SHARED_SECRET='__REPLACE_ME__'
+    ```
+    Edit them as follows:
     - Set `CURL_TO_EMAIL_WEB_APP_URI` to the "Web app" URL shown on Google Apps Script, under "Deploy" > "Manage Deployments" > (Active deployment).
     - Set `CURL_TO_EMAIL_SHARED_SECRET` to the `SHARED_SECRET` value you put in `Config.gs` on Google Apps Script.
     > These changes will make it so the `curl_to_email` command can talk to the web service.
@@ -116,3 +122,4 @@ Here's how you can uninstall the tool:
 
 1. On Google Apps Script, delete the project.
 1. In your `~/.zshrc` file, remove the lines that match the contents of `shell-command/zshrc_snippet.sh.txt`.
+1. (Optional) Delete the clone of this repository (which includes this `README.md` file—goodbye!).
