@@ -42,28 +42,33 @@ Here's how you can install the tool:
 
 #### 1. Deploy the web service to Google Apps Script.
 
-1. Visit https://script.google.com/home/projects/create to create a new Google Apps Script project
-1. In the Google Apps Script editor that appears, rename the project to "`curl-to-email`"
-    - You can do that by clicking on "Untitled project" at the top of the page
-1. In the Google Apps Script editor, add a new file of type "Script" and enter its name as "`Config`"
-    - Google Apps Script will automatically append a `.gs` to its name
-1. Replace the contents of the `Code.gs` file with the contents of the `web-service/Code.gs` file in this repository
-1. Replace the contents of the `Config.gs` file with the contents of the `web-service/Config.gs` file in this repository
-1. In the `Config.gs` file, update the `SHARED_SECRET` variable so it contains a password you generate
-    - I recommend generating the password using https://bitwarden.com/password-generator/
-1. Click the disk icon to save the project
-1. In the Google Apps Script editor, click "Deploy" > "New deployment"
-1. In the "Select type" section, click the gear icon and select "Web app"
+1. Visit https://script.google.com/home/projects/create to create a new Google Apps Script project.
+1. In the Google Apps Script editor that appears, rename the project to "`curl-to-email`".
+    - You can do that by clicking on "Untitled project" at the top of the page.
+1. In the Google Apps Script editor, create a new script file named "`Config`".
+    - In the "Files" section in the sidebar, click the "+" icon and select "Script".
+    - Enter the file's name as "`Config`" (without a suffix). Google Apps Script will automatically append a `.gs` to its name.
+1. In this repository, copy the contents `web-service/Code.gs` and paste it into the `Code.gs` file in the Google Apps Script editor, replacing its original contents.
+1. Similarly, in this repository, copy the contents `web-service/Config.gs` and paste it into the `Config.gs` file in the Google Apps Script editor, replacing its original contents.
+1. Generate a password (e.g. using [this tool](https://bitwarden.com/password-generator/)) and copy it to your clipboard
+1. In the `Config.gs` file, update the `SHARED_SECRET` value to be that password. For example:
+   ```diff
+   - SHARED_SECRET: "__REPLACE_ME__",
+   + SHARED_SECRET: "dXfENeiLEh7RHQ",
+   ```
+1. Click the disk icon to save the project.
+1. In the Google Apps Script editor, click "Deploy" > "New deployment".
+1. In the "Select type" section, click the gear icon and select "Web app".
 1. In the "Description" section, populate the fields like this:
     1. Description: `v1.0.0`
     1. Execute as: `Me (...)`
-    1. Who has access: `Anyone` (you'll rely on the password you created earlier—instead of on Google—to restrict access)
-1. Click the "Deploy" button
+    1. Who has access: `Anyone`
+1. Click the "Deploy" button.
 1. Allow the Google Apps Script project to send email as you:
-    1. Click the "Authorize access" button
-    1. In the "Sign in - Google Accounts" window that appears, select your Google account
-    1. In the "`curl-to-email` wants to access your Google Account" window, click the "Allow" button
-1. In the "Deployment successfully updated" window, click the "Done" button
+    1. Click the "Authorize access" button.
+    1. In the "Sign in - Google Accounts" window that appears, select your Google account.
+    1. In the "`curl-to-email` wants to access your Google Account" window, click the "Allow" button.
+1. In the "Deployment successfully updated" window, click the "Done" button.
 
 At this point, the web service is listening for HTTP requests.
 
