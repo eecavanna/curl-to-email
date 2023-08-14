@@ -46,7 +46,7 @@ Here's how you can install the tool:
 1. In the Google Apps Script editor that appears, rename the project to "`curl-to-email`".
     - You can do that by clicking on "Untitled project" at the top of the page.
 1. In the Google Apps Script editor, create a new script file named "`Config`".
-    - In the "Files" section in the sidebar, click the "+" icon and select "Script".
+    - In the "Files" section in the sidebar, click the `+` icon and select `Script`.
     - Enter the file's name as "`Config`" (without a suffix). Google Apps Script will automatically append a `.gs` to its name.
 1. In this repository, copy the contents `web-service/Code.gs` and paste it into the `Code.gs` file in the Google Apps Script editor, replacing its original contents.
 1. Similarly, in this repository, copy the contents `web-service/Config.gs` and paste it into the `Config.gs` file in the Google Apps Script editor, replacing its original contents.
@@ -57,20 +57,21 @@ Here's how you can install the tool:
    + SHARED_SECRET: "dXfENeiLEh7RHQ",
    ```
 1. Click the disk icon to save the project.
-1. In the Google Apps Script editor, click "Deploy" > "New deployment".
-1. In the "Select type" section, click the gear icon and select "Web app".
-1. In the "Description" section, populate the fields like this:
+1. In the Google Apps Script editor, click `Deploy` > `New deployment`.
+    - The "New deployment" window will appear.
+1. In the "Select type" section, click the gear (cog) icon and select `Web app`.
+    - A form will appear in the "Configuration" section of the window.
+1. Fill in the form like this:
     1. Description: `v1.0.0`
     1. Execute as: `Me (...)`
     1. Who has access: `Anyone`
-1. Click the "Deploy" button.
-1. Allow the Google Apps Script project to send email as you:
-    1. Click the "Authorize access" button.
-    1. In the "Sign in - Google Accounts" window that appears, select your Google account.
-    1. In the "`curl-to-email` wants to access your Google Account" window, click the "Allow" button.
-1. In the "Deployment successfully updated" window, click the "Done" button.
+1. Click the `Deploy` button.
+    - A message will appear that says:
+      > The Web app requires you to authorize access to your data.
+1. Click the "Authorize access" button. In the "Sign in - Google Accounts" window that appears, select your Google account. At the step that says "`curl-to-email` wants to access your Google Account", click the `Allow` button.
+1. In the "Deployment successfully updated" window, click the `Done` button.
 
-At this point, the web service is listening for HTTP requests.
+At this point, the web service has been deployed and is listening for HTTP requests.
 
 #### 2. Add the `curl_to_email` command to your shell.
 
@@ -92,13 +93,14 @@ At this point, the web service is listening for HTTP requests.
     ```
     The two lines are:
     ```sh
-    CURL_TO_EMAIL_WEB_APP_URI='__REPLACE_ME__'
+    CURL_TO_EMAIL_WEB_APP_URL='__REPLACE_ME__'
+    ```
+    - Replace `__REPLACE_ME__` with the "Web app" URL shown on Google Apps Script, under `Deploy` > `Manage Deployments` > _(the active deployment)_.
+    ```sh
     CURL_TO_EMAIL_SHARED_SECRET='__REPLACE_ME__'
     ```
-    Edit them as follows:
-    - Set `CURL_TO_EMAIL_WEB_APP_URI` to the "Web app" URL shown on Google Apps Script, under "Deploy" > "Manage Deployments" > (Active deployment).
-    - Set `CURL_TO_EMAIL_SHARED_SECRET` to the `SHARED_SECRET` value you put in `Config.gs` on Google Apps Script.
-    > These changes will make it so the `curl_to_email` command can talk to the web service.
+    - Replace `__REPLACE_ME__` with the same value you put into the `SHARED_SECRET` variable in the `Config.gs` file on Google Apps Script.
+    > These changes will make it so the `curl_to_email` command can use the web service.
 1. Re-initialize your current shell.
     ```shell
     source ~/.zshrc
@@ -153,7 +155,7 @@ Here are some usage examples:
 
 Here's how you can uninstall the tool:
 
-1. On Google Apps Script, delete the project.
+1. On Google Apps Script, remove the project.
 1. In your `~/.zshrc` file, remove the lines that match the contents of `shell-command/zshrc_snippet.sh.txt`.
 1. (Optional) Delete the clone of this repository (which includes this `README.md` file—goodbye!).
 
@@ -167,13 +169,13 @@ Here's how you can use this tool from within a Python script.
 import requests
 
 
-CURL_TO_EMAIL_WEB_APP_URI = "..."
+CURL_TO_EMAIL_WEB_APP_URL = "..."
 CURL_TO_EMAIL_SHARED_SECRET = "..."
 
 payload = dict(secret=CURL_TO_EMAIL_SHARED_SECRET,
                message="This is a message.")
 
-requests.post(CURL_TO_EMAIL_WEB_APP_URI, json=payload)
+requests.post(CURL_TO_EMAIL_WEB_APP_URL, json=payload)
 ```
 
 > This approach uses only the **web service** part of `curl-to-email`. It does not use the shell command part.
