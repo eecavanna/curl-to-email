@@ -127,26 +127,26 @@ Here are some usage examples:
   ```shell
   curl_to_email "Hello world!"
   ```
-- Run a program, and send an email when it stops running.
+- Run a Python script, then send an email when it stops running.
   ```shell
-  # e.g. Run ping, then send an email when it stops running.
-  ping -c 10 www.example.com ; curl_to_email "Ping is done."
-
-  # e.g. Run a Python script, and send an email when it stops running.
   python ./script.py --option 123 ; curl_to_email "Script is done."
   ```
-- Send an email when an already-running program stops running.
+- Run an arbitrary program (e.g. `ping`), then send an email when it stops running.
   ```shell
-  # Get the process ID of the program; e.g. "22222"
+  ping -c 10 www.example.com ; curl_to_email "Ping is done."
+  ```
+- Send an email when an already-running program stops running. This situation might arise if you started the program before you set up `curl-to-email`.
+  ```shell
+  # Get the process ID (e.g. "12345") of the already-running program.
   ps
   
   # When that process stops running, send an email.
   #
-  # Explanation: `lsof -p 22222 +r` will repeatedly list information about the
-  #              process having the process ID "22222" until that process stops
+  # Explanation: `lsof -p 12345 +r` will repeatedly list information about the
+  #              process having the process ID "12345" until that process stops
   #              running, and `1 &> /dev/null` will hide that information from
   #              the terminal. Once that process stops running, the next
-  #              command (after the semicolon) will run, which sends the email.
+  #              command (after the semicolon) will run, sending the email.
   #              
   lsof -p 22222 +r 1 &> /dev/null ; curl_to_email "That process is done."
   ```
