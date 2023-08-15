@@ -48,8 +48,8 @@ Here's how you can install the tool:
 1. In the Google Apps Script editor, create a new script file named "`Config`".
     - In the "Files" section in the sidebar, click the `+` icon and select `Script`.
     - Enter the file's name as "`Config`" (without a suffix). Google Apps Script will automatically append a `.gs` to its name.
-1. In this repository, copy the contents `web-service/Code.gs` and paste it into the `Code.gs` file in the Google Apps Script editor, replacing its original contents.
-1. Similarly, in this repository, copy the contents `web-service/Config.gs` and paste it into the `Config.gs` file in the Google Apps Script editor, replacing its original contents.
+1. In this repository, copy the contents of `web-service/Code.gs` and paste it into the `Code.gs` file in the Google Apps Script editor, replacing its original contents.
+1. Similarly, in this repository, copy the contents of `web-service/Config.gs` and paste it into the `Config.gs` file in the Google Apps Script editor, replacing its original contents.
 1. Generate a password (e.g. using [this tool](https://bitwarden.com/password-generator/)) and copy it to your clipboard
 1. In the `Config.gs` file, update the `SHARED_SECRET` value to be that password. For example:
    ```diff
