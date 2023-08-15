@@ -1,6 +1,6 @@
 # curl-to-email
 
-`curl-to-email` is a tool you can use to send yourself an email from the command-line.
+`curl-to-email` is a tool you can use to send yourself an email from the terminal (without it going to spam).
 
 The tool is made of two parts:
 
