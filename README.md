@@ -163,7 +163,7 @@ Here's how you can uninstall the tool:
 
 #### Usage with Python
 
-Here's how you can use this tool from within a Python script.
+Here's how you can use this tool from _within_ a Python script.
 
 ```py
 import requests
