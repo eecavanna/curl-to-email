@@ -37,6 +37,7 @@ Here's how you can install the tool:
     - To check: Run `git --version` and confirm the output contains a version number
 - `curl` is installed
     - To check: Run `curl --version` and confirm the output contains a version number
+- You have a [Google Account](https://support.google.com/accounts/answer/27441?hl=en) (free)
 
 ### Procedure
 
